@@ -150,10 +150,19 @@
     NSString *s = label.text;
     UIFont *font = [label font];
     CGSize size = CGSizeMake(320,2000);
-    CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    //CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    
+    NSDictionary *attributes = @{NSFontAttributeName : font};
+    
+    CGRect textFrame = [s boundingRectWithSize:size
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:attributes
+                                       context:nil];
+    
     CGRect frame = label.frame;
-    frame.size = labelsize;
+    frame.size = textFrame.size;
     [label setFrame:frame];
+
 }
 
 #pragma mark -- animation
